@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Bodegas y Productos</title>
+</head>
+<body>
+    <h1>Sistema de Bodegas y Productos</h1>
+    <h2>Registrar bodega</h2>
+    <p th:if="${mensaje}" th:text="${mensaje}"></p>
+    <form th:action="@{/bodegas}" th:object="${bodega}" method="post">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input id="nombre" type="text" th:field="*{nombre}" required />
+        </div>
+        <br />
+        <div>
+            <label for="ubicacion">Ubicación:</label>
+            <input id="ubicacion" type="text" th:field="*{ubicacion}" required />
+        </div>
+        <br />
+        <button type="submit">Guardar bodega</button>
+    </form>
+    <hr />
+    <h2>Productos registrados por bodega</h2>
+    <p th:if="${#lists.isEmpty(productos)}">No hay productos registrados.</p>
+    <table border="1" th:if="${!#lists.isEmpty(productos)}">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Bodega</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${productos}">
+                <td th:text="${p.nombre}">Producto</td>
+                <td th:text="${p.precio}">0</td>
+                <td th:text="${p.cantidad}">0</td>
+                <td th:text="${p.bodega}">Bodega</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
